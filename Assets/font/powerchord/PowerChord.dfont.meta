@@ -1,2 +1,23 @@
 fileFormatVersion: 2
-guid: fea4d81236a89ce419981e02456e4967
+guid: 3abd8e6307b5746488f149b360a9ce3b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PowerChord
+  fontNames:
+  - PowerChord
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4115bb5132e13ef4ab66a5ddcab31d31, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

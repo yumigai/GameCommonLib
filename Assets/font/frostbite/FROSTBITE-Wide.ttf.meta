@@ -1,2 +1,24 @@
 fileFormatVersion: 2
-guid: 58246ebb5283f1e4da5b49dd0ecebb58
+guid: 8ba9b04c3a75dd940bdfa6aa2577b608
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FROSTBITE Wide
+  fontNames:
+  - FROSTBITE Wide
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e85ea5316868abd4d94695541e544ad8, type: 3}
+  - {fileID: 12800000, guid: 17ce33db36e770d48833ce54620ab845, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

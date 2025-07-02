@@ -1,2 +1,22 @@
 fileFormatVersion: 2
-guid: e04ced47afe6c5b488d3387cbb7e116f
+guid: 66b0be98bf377c242be18aad46f9ca4b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chalk JP
+  fontNames:
+  - Chalk JP
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

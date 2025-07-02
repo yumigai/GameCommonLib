@@ -1,2 +1,22 @@
 fileFormatVersion: 2
-guid: b814df64daadede43b4bc1b3ee4e2b25
+guid: 492b0516b04037040bae847b53aa24c1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: JD Eugenia
+  fontNames:
+  - JD Eugenia
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
