@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4c2207bbfa9a5df468cc467082c7362e
+guid: b09aa66f88e8ffa42af22a9bed6d6b2a
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -12,9 +12,7 @@ TrueTypeFontImporter:
   fontNames:
   - FROSTBITE Narrow
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 28d2c12754f562e44a3754fd194524c8, type: 3}
-  - {fileID: 12800000, guid: 0489a977c45005b438e490ade6a890b5, type: 3}
-  - {fileID: 12800000, guid: 81203ba7d5addf14782743459d5227d7, type: 3}
+  - {fileID: 12800000, guid: 40ca363b20acebc44987d1796ae87b2d, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

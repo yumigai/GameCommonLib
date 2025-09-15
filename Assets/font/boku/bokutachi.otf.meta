@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f75a5b7ffdcd07547a6fc5953f1d8927
+guid: da2976f414378784a830897c6c5be4b5
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -11,8 +11,7 @@ TrueTypeFontImporter:
   fontName: BokutachinoGothic
   fontNames:
   - BokutachinoGothic
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 93471a39c3b90df4cbcdfeba4d5f37ff, type: 3}
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

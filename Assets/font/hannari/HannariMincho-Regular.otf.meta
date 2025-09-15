@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b64b668fd4c39ca45978748c4f9e2e61
+guid: d928a74953406da40810f674a6488d9a
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -11,8 +11,7 @@ TrueTypeFontImporter:
   fontName: HannariMincho
   fontNames:
   - HannariMincho
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 7661b60e7f59d344cb87157c15f4b8e3, type: 3}
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

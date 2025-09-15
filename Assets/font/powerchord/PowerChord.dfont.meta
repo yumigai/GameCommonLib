@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3abd8e6307b5746488f149b360a9ce3b
+guid: fea4d81236a89ce419981e02456e4967
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -12,7 +12,7 @@ TrueTypeFontImporter:
   fontNames:
   - PowerChord
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 4115bb5132e13ef4ab66a5ddcab31d31, type: 3}
+  - {fileID: 12800000, guid: b4951a4aef052e34a91f469089bce18c, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

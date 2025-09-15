@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c54cc4a5082ce42499f7b62a1f6c0172
+guid: 11f405ef3f929e045820653e48295814
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -11,8 +11,7 @@ TrueTypeFontImporter:
   fontName: 851MkPOP
   fontNames:
   - 851MkPOP
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 706c0e53e6caaee48a5712989a086f85, type: 3}
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
