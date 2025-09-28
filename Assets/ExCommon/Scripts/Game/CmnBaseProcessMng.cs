@@ -316,7 +316,13 @@ public class CmnBaseProcessMng : MonoBehaviour {
 		}
 	}
 
-	public static ConfirmWindowCmn showConfirm(string txt, System.Action<object> callback, object param = null, bool isHold = false) {
+    public static ConfirmWindowCmn showConfirmVoid(string txt, System.Action callback, object param = null, bool isHold = false) {
+        return showConfirm(txt, delegate {
+            callback();
+        }, null, param, isHold);
+    }
+
+    public static ConfirmWindowCmn showConfirm(string txt, System.Action<object> callback, object param = null, bool isHold = false) {
 		return showConfirm(txt, callback, null, param, isHold);
 	}
 
