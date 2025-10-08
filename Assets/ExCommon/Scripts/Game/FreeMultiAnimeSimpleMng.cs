@@ -95,4 +95,10 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
     public void AnimeStop() {
         IsStop = true;
     }
+
+    public void AnimeRestart() {
+        ReverseAdj = 1;
+        StatusReset();
+        AnimeStart();
+    }
 }

@@ -155,4 +155,7 @@ public class MultiUseListMng : ListItemMng
 	}
 	#endregion
 
+	public static MultiUseListMng GetNowListItem() {
+		return EventSystem.current.currentSelectedGameObject.GetComponentInChildren<MultiUseListMng>();
+	}
 }
