@@ -15,16 +15,15 @@ public class MultiUseScrollMng : MonoBehaviour
     public GameObject ListItem;
 
     [SerializeField]
-    protected GamePadListRecivMng Recive;
+    public GamePadListRecivMng Recive;
 
     [System.NonSerialized]
     public List<MultiUseListMng> ItemList = new List<MultiUseListMng>();
 
-    //        public static MultiUseScrollMng Singleton;
-
-    public GamePadListRecivMng Rcv;
-
     void Awake() {
+        if (Recive == null) {
+            Recive = GetComponent<GamePadListRecivMng>();
+        }
         ListItem.SetActive(false);
     }
 
