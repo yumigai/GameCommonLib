@@ -5,33 +5,39 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MultiUseScrollMng : MonoBehaviour {
+public class MultiUseScrollMng : MonoBehaviour
+{
 
     [SerializeField]
     public string IconDirectory;
-	
-	[SerializeField]
-	public GameObject ListItem;
+
+    [SerializeField]
+    public GameObject ListItem;
+
+    [SerializeField]
+    protected GamePadListRecivMng Recive;
 
     [System.NonSerialized]
     public List<MultiUseListMng> ItemList = new List<MultiUseListMng>();
 
-    //	public static MultiUseScrollMng Singleton;
+    //        public static MultiUseScrollMng Singleton;
 
-    void Awake(){
+    public GamePadListRecivMng Rcv;
+
+    void Awake() {
         ListItem.SetActive(false);
     }
 
-    public List<MultiUseListMng> makeList( MulitiUseListMast[] list ){
+    public List<MultiUseListMng> makeList(MulitiUseListMast[] list) {
 
         clear();
-	
-		for( int i = 0; i < list.Length; i++ ){
-            makeListItemMasterId( i, list[i] );
-		}
+
+        for (int i = 0; i < list.Length; i++) {
+            makeListItemMasterId(i, list[i]);
+        }
 
         return ItemList;
-	}
+    }
 
     /// <summary>
     /// IDを独自採番する（マスタによるIDではなくトランザクションのIDを使用）
@@ -56,27 +62,27 @@ public class MultiUseScrollMng : MonoBehaviour {
     /// <param name="button_txt"></param>
     /// <param name="btn_state"></param>
     /// <returns></returns>
-    public MultiUseListMng makeListItemMasterId( int i, MulitiUseListMast mst, string button_txt = "選択", MultiUseListMng.BUTTON btn_state = MultiUseListMng.BUTTON.SHOW ){
+    public MultiUseListMng makeListItemMasterId(int i, MulitiUseListMast mst, string button_txt = "選択", MultiUseListMng.BUTTON btn_state = MultiUseListMng.BUTTON.SHOW) {
 
         MultiUseListMng mng = makeListItem(mst.Id, mst.Name, mst.Icon, mst.Detail);
         mng.Index = i;
         //      mng.Id = mst.Id;
         //mng.Name.text = mst.Name;
         //if (mng.Detail != null) {
-        //	mng.Detail.text = mst.Detail;
+        //        mng.Detail.text = mst.Detail;
         //}
         //mng.setIcon(ICON_PATH + mst.Icon);
 
-        if ( mng.ButtonTxt != null ){
-			mng.ButtonTxt.text = button_txt;
-		}
-        
-		mng.setButton( btn_state );
+        if (mng.ButtonTxt != null) {
+            mng.ButtonTxt.text = button_txt;
+        }
+
+        mng.setButton(btn_state);
         mng.ImagePath = mst.ImagePath;
-		mng.Callback = pushList;
-        
+        mng.Callback = pushList;
+
         return mng;
-	}
+    }
 
     public MultiUseListMng makeListItem(int id, string name, string icon = "", string detail = "", string value = "", UnityAction<int> action = null) {
 
@@ -86,34 +92,35 @@ public class MultiUseScrollMng : MonoBehaviour {
         if (mng.Name != null) {
             mng.Name.text = name;
         }
-        if(icon != null && icon.Length > 0) {
+        if (icon != null && icon.Length > 0) {
             mng.setIcon(IconDirectory + icon);
         }
         if (mng.Detail != null) {
             mng.Detail.text = detail;
         }
-        if(mng.Value != null) {
+        if (mng.Value != null) {
             mng.Value.text = value;
         }
-        if(mng.Btn != null && action != null) {
+        if (mng.Btn != null && action != null) {
             mng.SetButtonInvoke(action);
         }
 
         return mng;
     }
 
-    public MultiUseListMng makeListItem(){
-		GameObject item = Instantiate( ListItem ) as GameObject;
+    public MultiUseListMng makeListItem() {
+        GameObject item = Instantiate(ListItem) as GameObject;
         item.SetActive(true);
-        item.transform.SetParent( ListItem.transform.parent );
-		item.transform.localScale = ListItem.transform.localScale;
+        item.transform.SetParent(ListItem.transform.parent);
+        item.transform.localScale = ListItem.transform.localScale;
         MultiUseListMng mng = item.GetComponent<MultiUseListMng>();
         ItemList.Add(mng);
         return mng;
 
-	}
-	
-	virtual public void pushList( MultiUseListMng mng ){}
+    }
+
+    virtual public void pushList(MultiUseListMng mng) {
+    }
 
     /// <summary>
     /// リストクリア
