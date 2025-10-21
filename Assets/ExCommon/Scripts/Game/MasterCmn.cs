@@ -115,7 +115,8 @@ public class MasterCmn : ParamCmn
 							}
 							val = (object)arr;
 						}
-
+					//} else if (string.Compare(et.GetType().Name,"KeyValuePair`2") == 0 ) {
+					//	string[] purge = values[indexs[0]].Split(':');
 					} else {
 						val = values[index];
 					}
