@@ -75,6 +75,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
                 if (MultiSpeeds != null && MultiSpeeds.Length > i) {
                     move = MultiSpeeds[i];
                 }
+                move *= Time.fixedDeltaTime;
 
                 float dist = Vector3.Distance(MovePoints[i], MovePoints[i + 1]);
                 MoveDirect[i] = (MovePoints[i + 1] - MovePoints[i]) * (move / dist);

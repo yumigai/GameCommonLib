@@ -14,7 +14,7 @@ public class ConfirmWindowCmn : MonoBehaviour {
 	public Text UiText;
 
     [SerializeField]
-    public Image Icon;
+    public Image Img;
 
     [SerializeField]
     public Text IconText;
@@ -198,20 +198,23 @@ public class ConfirmWindowCmn : MonoBehaviour {
 
     public void hideThis()
     {
-        GamePadListRecivMng.returnJustBeforeGamePad();
         this.gameObject.SetActive(false);
     }
 
     public void destroyThis() {
-        GamePadListRecivMng.returnJustBeforeGamePad();
         Destroy(this.gameObject);
+    }
+
+    public void OnDisable() {
+        GamePadListRecivMng.returnJustBeforeGamePad();
     }
 
     public Sprite setIcon(string path){
         Sprite sp = Resources.Load<Sprite>(path);
-        if (Icon != null)
+        if (Img != null)
         {
-            Icon.sprite = sp;
+            Img.gameObject.SetActive(sp!=null);
+            Img.sprite = sp;
         }
         return sp;
     }

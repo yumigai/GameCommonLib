@@ -451,6 +451,17 @@ public class UtilToolLib : MonoBehaviour
         return cam.ScreenToWorldPoint(posi);
     }
 
+    //// ワールド座標をCanvas座標に変換する
+    //public static Vector2 GetCanvasPosition(Vector3 worldPosition, Canvas canvas) {
+    //    RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+    //    Vector2 viewportPosition = Camera.main.WorldToViewportPoint(worldPosition);
+    //    Vector2 canvasPosition = new Vector2(
+    //        ((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f)),
+    //        ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f))
+    //    );
+    //    return canvasPosition;
+    //}
+
     public static int ParseInt(string str, int def = 0) {
         int o;
         return int.TryParse(str, out o) ? o : def;

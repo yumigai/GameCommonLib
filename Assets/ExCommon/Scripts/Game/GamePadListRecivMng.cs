@@ -233,7 +233,7 @@ public class GamePadListRecivMng : MonoBehaviour {
             //} else 
             if (GamePadButtonMng.GetAxisInt(GamePadButtonMng.AnalogRawType.DUAL, Type, true) != 0) {
                 //フォーカスが外れた場合の復帰処理（消すな）
-                if (EventSystem.current.currentSelectedGameObject == null) {
+                if (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy) {
                     setSelectedGameObject(this);
                 } else {
                     GameObject btn = getActiveButton();
@@ -242,11 +242,42 @@ public class GamePadListRecivMng : MonoBehaviour {
                         Selecter = btnmng.ListIndex;
                     }
                 }
-            } 
-            //else {
-            //    IsReadyCancel = true;
-            //}
+
+                Debug.Log(  " : "+IsButtonClickable());
+            }
         }
+    }
+
+    // ボタンがクリック可能かどうかを判定する
+    public bool IsButtonClickable() {
+        // まず、ボタンがアクティブでインタラクタブルであることを確認
+        if (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy) {
+            return false;
+        }
+
+        // Raycastを飛ばして、ボタンの領域に何がヒットするか調べる
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = UtilToolLib.changeScreenPosi(Camera.main, EventSystem.current.currentSelectedGameObject.transform.position);
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        // Raycastの結果をチェック
+        foreach (RaycastResult result in results) {
+
+            Debug.Log(result.gameObject.name);
+
+            // ヒットしたUI要素がボタン自身であれば、遮られていないと判断
+            //if (result.gameObject == EventSystem.current.currentSelectedGameObject) {
+            //    return true;
+            //}
+
+            //// ボタンよりも手前にあるUI要素にヒットした場合、遮られている
+            //// EventSystemのRaycastAllは手前から順に結果を返すため、最初にヒットしたものがボタンでなければアウト
+            //return false;
+        }
+
+        return false;
     }
 
     /// <summary>
