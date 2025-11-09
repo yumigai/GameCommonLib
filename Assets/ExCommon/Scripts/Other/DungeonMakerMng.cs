@@ -9,7 +9,7 @@ public class NewBehaviourScript : MonoBehaviour
 {
     [MenuItem("Custom/make/DungeonMakerWindow")]
     public static void DebugController() {
-        EditorWindow window = EditorWindow.GetWindow(typeof(dungeonMakerWindow),false,"Dungeon Maker");
+        EditorWindow window = EditorWindow.GetWindow(typeof(dungeonMakerWindow),false,"Dungeon Template Maker");
         window.Show();
     }
 
@@ -49,7 +49,6 @@ public class NewBehaviourScript : MonoBehaviour
         float FloorThicness = 1f;
         float WallHeight = 6f;
         float WallThicness = 1f;
-
 
         void OnGUI() {
             GUILayout.Label("説明");

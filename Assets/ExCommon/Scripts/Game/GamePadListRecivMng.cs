@@ -89,6 +89,10 @@ public class GamePadListRecivMng : MonoBehaviour {
         }
     }
 
+    private void OnEnable() {
+        _activeGamePadList = this;
+    }
+
     /// <summary>
     /// 入力権を移す処理を１フレーム分待つ
     /// </summary>
@@ -243,12 +247,12 @@ public class GamePadListRecivMng : MonoBehaviour {
                     }
                 }
 
-                Debug.Log(  " : "+IsButtonClickable());
+                //Debug.Log(  " : "+IsButtonClickable());
             }
         }
     }
 
-    // ボタンがクリック可能かどうかを判定する
+    // ボタンがクリック可能かどうかを判定する（未完）
     public bool IsButtonClickable() {
         // まず、ボタンがアクティブでインタラクタブルであることを確認
         if (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy) {
@@ -264,8 +268,6 @@ public class GamePadListRecivMng : MonoBehaviour {
 
         // Raycastの結果をチェック
         foreach (RaycastResult result in results) {
-
-            Debug.Log(result.gameObject.name);
 
             // ヒットしたUI要素がボタン自身であれば、遮られていないと判断
             //if (result.gameObject == EventSystem.current.currentSelectedGameObject) {
@@ -292,6 +294,11 @@ public class GamePadListRecivMng : MonoBehaviour {
 
         return EventSystem.current.currentSelectedGameObject;
 
+    }
+
+    public GamePadListRecivMng setActive(bool record_before = true) {
+        changeActiveList(this, record_before);
+        return this;
     }
 
     /// <summary>
@@ -379,8 +386,6 @@ public class GamePadListRecivMng : MonoBehaviour {
     }
     private void returnBeforeGamePad() {
         if (_beforeGamePadList != null) {
-            //Debug.Log("CahgeActive:" + ActiveGamePadList.transform.parent.parent );
-            //Debug.Log("CahgeActive Next:" + _beforeGamePadList.transform.parent.parent);
             changeActiveList(_beforeGamePadList, false);
         }
     }

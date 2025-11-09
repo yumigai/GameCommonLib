@@ -8,7 +8,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
     public enum END_TO
     {
         NON,
-        REPEAT,
+        RESTART,
         REVERSE,
         DESTROY,
     }
@@ -40,8 +40,10 @@ public class CmnAnimeTraceMng : MonoBehaviour
     public System.Action Callback;
 
     private Vector3 InitPosition;
+    private Vector3 InitAngle;
     private int[] MaxMoveCounts;
     private Vector3[] MoveDirect;
+    private Vector3[] AngleDirect;
     private int MoveCount;
     private int NowMoveIndex;
     private int ReverseAdj = 1;
@@ -61,6 +63,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
                 MovePoints[i] = TargetPoints[i].position;
             }
             InitPosition = MovePoints[0];
+            InitAngle = TargetPoints[0].localEulerAngles;
         }
     }
 
@@ -69,6 +72,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
         if (MovePoints.Length > 1) {
             MaxMoveCounts = new int[MovePoints.Length - 1];
             MoveDirect = new Vector3[MovePoints.Length - 1];
+            AngleDirect = new Vector3[MovePoints.Length - 1];
 
             for (int i = 0; i < MaxMoveCounts.Length; i++) {
                 float move = Speed;
@@ -81,10 +85,12 @@ public class CmnAnimeTraceMng : MonoBehaviour
                 MoveDirect[i] = (MovePoints[i + 1] - MovePoints[i]) * (move / dist);
                 MaxMoveCounts[i] = (int)Mathf.Ceil(dist / move);
 
+                AngleDirect[i] = (TargetPoints[i + 1].localEulerAngles - TargetPoints[i].localEulerAngles) / MaxMoveCounts[i];
             }
         }
 
         this.transform.position = InitPosition;
+        this.transform.localEulerAngles = InitAngle;
     }
 
     void FixedUpdate() {
@@ -101,6 +107,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
                 RestInterval = Interval;
             } else {
                 this.transform.position += MoveDirect[NowMoveIndex] * ReverseAdj;
+                this.transform.localEulerAngles += AngleDirect[NowMoveIndex] * ReverseAdj;
                 MoveCount++;
             }
 
@@ -110,16 +117,16 @@ public class CmnAnimeTraceMng : MonoBehaviour
                     FinishEvent.Invoke();
                 }
                 switch (EndTo) {
-                    case END_TO.REPEAT:
-                    NowMoveIndex = 0;
-                    this.transform.position = InitPosition;
-                    break;
+                    case END_TO.RESTART:
+                        NowMoveIndex = 0;
+                        StatusReset();
+                        break;
                     case END_TO.REVERSE:
                     ReverseAdj *= -1;
                     if (ReverseAdj > 0) {
                         NowMoveIndex = 0;
-                        this.transform.position = InitPosition;
-                    } else {
+                        StatusReset();
+                        } else {
                         NowMoveIndex = MoveDirect.Length - 1;
                     }
                     break;
@@ -136,6 +143,7 @@ public class CmnAnimeTraceMng : MonoBehaviour
 
     private void StatusReset() {
         this.transform.localPosition = InitPosition;
+        this.transform.localEulerAngles = InitAngle;
     }
 
     public void AnimeStart() {
