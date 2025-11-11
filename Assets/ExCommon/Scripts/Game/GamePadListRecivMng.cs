@@ -90,7 +90,7 @@ public class GamePadListRecivMng : MonoBehaviour {
     }
 
     private void OnEnable() {
-        _activeGamePadList = this;
+        ActiveGamePadList = this;
     }
 
     /// <summary>
@@ -296,11 +296,6 @@ public class GamePadListRecivMng : MonoBehaviour {
 
     }
 
-    public GamePadListRecivMng setActive(bool record_before = true) {
-        changeActiveList(this, record_before);
-        return this;
-    }
-
     /// <summary>
     /// アクティブボタンの有効切り替え
     /// </summary>
@@ -385,7 +380,7 @@ public class GamePadListRecivMng : MonoBehaviour {
         returnBeforeGamePad();
     }
     private void returnBeforeGamePad() {
-        if (_beforeGamePadList != null) {
+        if (ActiveGamePadList == this && _beforeGamePadList != null) {
             changeActiveList(_beforeGamePadList, false);
         }
     }
@@ -408,6 +403,12 @@ public class GamePadListRecivMng : MonoBehaviour {
     //        CallbackCancel();
     //    }
     //}
+
+    public void setGuidMessage(string txt) {
+        if (GuidMessage != null) {
+            GuidMessage.text = txt;
+        }
+    }
 
     public int getButtonIndex( GamePadButtonMng btn ) {
         return Buttons.IndexOf(btn);
