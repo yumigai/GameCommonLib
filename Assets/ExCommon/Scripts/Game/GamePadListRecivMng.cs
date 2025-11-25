@@ -380,7 +380,7 @@ public class GamePadListRecivMng : MonoBehaviour {
         returnBeforeGamePad();
     }
     private void returnBeforeGamePad() {
-        if (ActiveGamePadList == this && _beforeGamePadList != null) {
+        if ((ActiveGamePadList == null || ActiveGamePadList == this ) && _beforeGamePadList != null) {
             changeActiveList(_beforeGamePadList, false);
         }
     }
