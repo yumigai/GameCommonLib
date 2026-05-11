@@ -585,12 +585,57 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
         updGauge();
     }
 
+    /// <summary>
+    /// 優先入力対象か
+    /// </summary>
+    /// <returns></returns>
     private bool IsInputPriority() {
         if (StandByList.Last() == this && ListRecive == null) {
             return true;
         }
         return false;
     }
+
+    /// <summary>
+    /// ボタン押下アクション設定
+    /// </summary>
+    /// <param name="call"></param>
+    public void SetButtonInvoke(UnityAction call) {
+        onClick.RemoveAllListeners();
+        onClick.AddListener(call);
+    }
+
+    public void SetButtonInvoke(UnityAction<int> call, int value) {
+        onClick.RemoveAllListeners();
+        onClick.AddListener(() => call(value));
+    }
+
+    /// <summary>
+    /// ボタン選択アクション設定
+    /// </summary>
+    /// <param name="call"></param>
+    public void SetButtonSelectInvoke( UnityAction call ) {
+        SetButtonSelectInvokeCmn(() => { call(); });
+    }
+
+    public void SetButtonSelectInvoke(UnityAction<int> call, int value) {
+        SetButtonSelectInvokeCmn(() => { call(value); });
+    }
+
+    private void SetButtonSelectInvokeCmn(System.Action action) {
+        EventTrigger trigger = gameObject.GetComponent<EventTrigger>();
+        if (trigger == null) {
+            trigger = gameObject.AddComponent<EventTrigger>();
+        }
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.Select; // ここでSelectを指定
+        entry.callback = new EventTrigger.TriggerEvent();
+
+        entry.callback.AddListener((data) => { action(); });
+        trigger.triggers.Add(entry);
+    }
+
+
 
     [SerializeField] private GraphicRaycaster raycaster; // CanvasのRaycaster
     [SerializeField] private PointerEventData pointerEventData;

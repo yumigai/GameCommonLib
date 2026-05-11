@@ -65,12 +65,6 @@ public class MultiUseScrollMng : MonoBehaviour
 
         MultiUseListMng mng = makeListItem(mst.Id, mst.Name, mst.Icon, mst.Detail);
         mng.Index = i;
-        //      mng.Id = mst.Id;
-        //mng.Name.text = mst.Name;
-        //if (mng.Detail != null) {
-        //        mng.Detail.text = mst.Detail;
-        //}
-        //mng.setIcon(ICON_PATH + mst.Icon);
 
         if (mng.ButtonTxt != null) {
             mng.ButtonTxt.text = button_txt;
