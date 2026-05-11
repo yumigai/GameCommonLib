@@ -592,4 +592,34 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
         return false;
     }
 
+    [SerializeField] private GraphicRaycaster raycaster; // CanvasのRaycaster
+    [SerializeField] private PointerEventData pointerEventData;
+    [SerializeField] private EventSystem eventSystem;
+
+
+    private bool IsButtonOnFront(Button button) {
+        // 1. マウス位置のポインターイベント作成
+        pointerEventData = new PointerEventData(eventSystem);
+        pointerEventData.position = Input.mousePosition;
+
+        // 2. レイキャスト結果を格納するリスト
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        // 3. UIのレイキャスト
+        raycaster.Raycast(pointerEventData, results);
+
+        // 4. 結果リストの先頭（最前面）がこのボタンか確認
+        if (results.Count > 0) {
+            if (results[0].gameObject == button.gameObject) {
+                return true;
+            }
+            // ボタンの子要素（テキストなど）が先頭にある場合も考慮
+            if (results[0].gameObject.transform.IsChildOf(button.transform)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

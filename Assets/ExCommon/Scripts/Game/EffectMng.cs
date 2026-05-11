@@ -67,7 +67,9 @@ public class EffectMng : MonoBehaviour{
     }
 
     private void OnDisable() {
-        System.Array.ForEach(Effects, it => Destroy(it?.gameObject));
+        if (Effects != null) {
+            System.Array.ForEach(Effects, it => Destroy(it?.gameObject));
+        }
     }
 
     public static void showEffect(Vector3 posi, Quaternion rotate, GameObject prefab, float time = 1f )

@@ -11,19 +11,22 @@ public class TimeInvokeMng : MonoBehaviour
     /// <param name="callback"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static TimeInvokeMng TimerAction( GameObject go, System.Action callback, float time ) {
-        var timer = GetTimer(go, callback);
+    public static TimeInvokeMng TimerAction( System.Action callback, float time, GameObject go) {
+        var timer = GetTimer(callback, go);
         timer.TimerAction(callback, time);
         return timer;
     }
 
-    public static TimeInvokeMng FrameEndAction(GameObject go, System.Action callback) {
-        var timer = GetTimer(go, callback);
+    public static TimeInvokeMng FrameEndAction(System.Action callback, GameObject go = null) {
+        if (go == null) {
+            go = CommonProcess.getCommonObject();
+        }
+        var timer = GetTimer(callback, go);
         timer.FrameAction(callback);
         return timer;
     }
 
-    protected static TimeInvokeMng GetTimer(GameObject go, System.Action callback) {
+    protected static TimeInvokeMng GetTimer(System.Action callback, GameObject go) {
         var timer = go.GetComponent<TimeInvokeMng>();
         if (timer == null) {
             timer = go.AddComponent<TimeInvokeMng>();
@@ -38,8 +41,8 @@ public class TimeInvokeMng : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static TimeInvokeMng TimerDestroy(GameObject go, float time) {
-        return TimerAction(go,()=>{ Destroy(go); },time);
+    public static TimeInvokeMng TimerDestroy(float time, GameObject go) {
+        return TimerAction(()=>{ Destroy(go); },time, go);
     }
 
     /// <summary>
@@ -48,8 +51,8 @@ public class TimeInvokeMng : MonoBehaviour
     /// <param name="go"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static TimeInvokeMng TimerHide(GameObject go, float time) {
-        return TimerAction(go, () => { go.SetActive(false); }, time);
+    public static TimeInvokeMng TimerHide(float time, GameObject go) {
+        return TimerAction(() => { go.SetActive(false); }, time, go);
     }
 
 

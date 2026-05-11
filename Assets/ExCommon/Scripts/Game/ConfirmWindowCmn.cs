@@ -244,7 +244,7 @@ public class ConfirmWindowCmn : MonoBehaviour {
     private void initButton(GamePadButtonMng btn) {
         if (btn != null) {
             btn.gameObject.SetActive(false);
-            TimeInvokeMng.TimerAction(this.gameObject, () => { btn.gameObject.SetActive(true); }, WAIT_BUTTON);
+            TimeInvokeMng.TimerAction( () => { btn.gameObject.SetActive(true); }, WAIT_BUTTON, this.gameObject);
         }
     }
 

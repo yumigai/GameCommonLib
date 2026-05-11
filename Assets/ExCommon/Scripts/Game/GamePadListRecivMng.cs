@@ -217,7 +217,7 @@ public class GamePadListRecivMng : MonoBehaviour {
     /// </summary>
     /// <param name="over_ride"></param>
     public void initSetupWithFrameEnd(bool over_ride = false) {
-        TimeInvokeMng.FrameEndAction(this.gameObject, () => { initSetup(over_ride); });
+        TimeInvokeMng.FrameEndAction(() => { initSetup(over_ride); }, this.gameObject);
     }
 
     private void Update() {
@@ -319,12 +319,22 @@ public class GamePadListRecivMng : MonoBehaviour {
            
         _activeGamePadList = list;
 
-        setSelectedGameObject(list);
+        //setSelectedGameObject(list);
+
+        TimeInvokeMng.FrameEndAction( setSelectedGameObjectInit);
+
+        //if (_activeGamePadList != null ) {
+
+        //    _activeGamePadList.StartCoroutine(setSelectedGameObjectInit());
+        //}
     }
 
+    private static void setSelectedGameObjectInit() {
+        setSelectedGameObject(_activeGamePadList);
+    }
 
     private static void setSelectedGameObject(GamePadListRecivMng list) {
-        if (list != null) {
+        if (list != null && list.gameObject.activeSelf) {
             list.setSelectedButton();
         }
     }
