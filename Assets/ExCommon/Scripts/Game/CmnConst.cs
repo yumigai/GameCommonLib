@@ -56,6 +56,12 @@ public class CmnConst {
 		En
 	}
 
+	public enum BOARD_STATUS
+	{
+		OPEN,
+		CLOSING,
+		CLOSED,
+	}
 
 	public const string BEFORE_TITLE_SCENE_NAME = "CmnBeforeTitleScene";
 
