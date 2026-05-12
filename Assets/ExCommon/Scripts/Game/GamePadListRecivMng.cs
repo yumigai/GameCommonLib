@@ -217,7 +217,7 @@ public class GamePadListRecivMng : MonoBehaviour {
     /// </summary>
     /// <param name="over_ride"></param>
     public void initSetupWithFrameEnd(bool over_ride = false) {
-        TimeInvokeMng.FrameEndAction(() => { initSetup(over_ride); }, this.gameObject);
+        TimeInvokeMng.FrameEndAction(() => { initSetup(over_ride); });
     }
 
     private void Update() {
@@ -347,14 +347,22 @@ public class GamePadListRecivMng : MonoBehaviour {
             }
             var btn = Buttons[Selecter];
             if (btn != null) {
-                if (EventSystem.current != null) {
-                    EventSystem.current.SetSelectedGameObject(btn.gameObject);
-                }
+                //if (EventSystem.current != null) {
+                //    EventSystem.current.SetSelectedGameObject(btn.gameObject);
+                //}
+                SetCurrentButton(btn.gameObject);
             } else {
                 //init時のエラーでButtonsにnullが混じった場合、削除
                 Buttons.RemoveAt(Selecter);
             }
         } else {
+            SetCurrentButton(null);
+        }
+    }
+
+    public void SetCurrentButton( GameObject btn ) {
+        if (EventSystem.current != null) {
+            EventSystem.current.SetSelectedGameObject(btn);
         }
     }
 
