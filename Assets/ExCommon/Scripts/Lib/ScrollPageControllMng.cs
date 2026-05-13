@@ -104,7 +104,9 @@ public class ScrollPageControllMng : MonoBehaviour
             ViewSize = rect.rect.width;
         }
 
-        setPage();
+        //TimeInvokeMng.FrameEndAction(resetPage);
+        //setPage();
+        resetPage();
 
     }
 
@@ -142,7 +144,6 @@ public class ScrollPageControllMng : MonoBehaviour
             var posi = Scroll.content.transform.localPosition;
 
             if (SelectedObject != null) {
-
                 var rect = selected.GetComponent<RectTransform>();
                 var item_size = Scroll.vertical ? rect.sizeDelta.y * rect.pivot.y : rect.sizeDelta.x * rect.pivot.x;
                 var selected_posi = selected.transform.localPosition;
@@ -197,6 +198,10 @@ public class ScrollPageControllMng : MonoBehaviour
         int nextIndex = Mathf.Clamp(index + (pageItemNum * num), 0, count);
         var nextItem = items.ElementAt(nextIndex);
         EventSystem.current.SetSelectedGameObject(nextItem);
+    }
+
+    public void resetPage() {
+        Scroll.content.transform.localPosition = new Vector2(Scroll.content.transform.localPosition.x, 0f);
     }
 
     public List<GameObject> GetItemList() {
