@@ -184,12 +184,17 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
 
         //ゲームパッド・キーボードチェック
         //リストの場合
-        if (ListRecive == null) {
-            input();
-        } else if (ListRecive.getActiveButton() == this.gameObject && DealButton != CmnConfig.GamePadButton.Decision) {
-            //このボタンが選択状態、かつ、決定ボタンでない場合（決定はEventSystemによって発火させる）
-            input();
-        }
+        //if (ListRecive == null) {
+        //    input();
+        //} else if (ListRecive.getActiveButton() == this.gameObject && DealButton != CmnConfig.GamePadButton.Decision) {
+        //    //このボタンが選択状態、かつ、決定ボタンでない場合（決定はEventSystemによって発火させる）
+        //    input();
+        //} else if (DealButton == CmnConfig.GamePadButton.Cancel) {
+        //    //キャンセルは例外的に、リストで選択状態で無い場合でも実行する
+        //    input();
+        //}
+
+        input();
         
         //マウス入力チェック
         if (IsHold && HoldingMouseDown) {
@@ -214,7 +219,6 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     protected bool input() {
 
         if (interactable && (ListRecive == null || ListRecive.IsActive)) {
-
             if (IsHold) {
                 var holding = inputKeyAction();
                 if (!holding) {
@@ -283,16 +287,25 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     }
 
     protected bool checkKeyAction() {
+
         if (DealButton < CmnConfig.GamePadButton.KeyAll && CrossPlatformInputManager.GetButton(DealStr)) {
             //パッドキー
-            if (DealButton == CmnConfig.GamePadButton.Decision || DealButton == CmnConfig.GamePadButton.Cancel) {
-                if (ListRecive == null && EventSystem.current.currentSelectedGameObject != this.gameObject) {
-                    //リストではなく、決定・キャンセルの対象の場合、選択状態でない場合も発火させるため、EventSystemから漏れた分をフォローする
+            if (ListRecive == null) {
+                return true;
+            } else {
+                if (DealButton == CmnConfig.GamePadButton.Decision) {
+                    return false;
+                } else if (DealButton == CmnConfig.GamePadButton.Cancel) {
+                    //キャンセルの場合、リストが有効なら選択状態でない場合も発火
+                    if (ListRecive.IsActive) {
+                        return true;
+                    }
+                } else if (ListRecive.getActiveButton() == this.gameObject) {
+                    //リストで、このボタンが選択状態の場合
                     return true;
                 }
-            } else {
-                return true;
             }
+            
         }
         return false;
     }
@@ -590,10 +603,37 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     /// </summary>
     /// <returns></returns>
     private bool IsInputPriority() {
-        if (StandByList.Last() == this && ListRecive == null) {
-            return true;
+
+        if (ListRecive == null){
+            if (StandByList.Last() != this) {
+                return false;
+            }
+        } else {
+            if (!ListRecive.IsActive) {
+                return false;
+            }
         }
-        return false;
+
+        //if (StandByList.Last() != this && ListRecive == null) {
+        //    return false;
+        //}
+
+        if (ConfirmWindowCmn.Instance != null && ConfirmWindowCmn.Instance.gameObject.activeSelf) {
+            //確認ダイアログが表示されている場合、入力防止
+            //return false;
+        }
+
+        //if (ListRecive != null && !ListRecive.IsActive) {
+        //    return false;
+        //}
+
+        //if (ListRecive.getActiveButton() == this.gameObject && DealButton != CmnConfig.GamePadButton.Decision) {
+        //    //このボタンが選択状態、かつ、決定ボタンでない場合（決定はEventSystemによって発火させる）
+        //    return true;
+        //} 
+
+
+        return true;
     }
 
     /// <summary>
