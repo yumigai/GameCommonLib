@@ -14,6 +14,9 @@ public class ListItemMng : Item
     [SerializeField]
     public GameObject CheckMark;
 
+    protected override void OnEnable() {
+        check(false);
+    }
     public void check(bool val) {
         if (CheckMark != null) {
             CheckMark?.SetActive(val);

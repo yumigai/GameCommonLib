@@ -42,6 +42,9 @@ public class CharaImgGaugeMng : ListItemMng
     [SerializeField]
     private GameObject[] UnitFrames; //ユニットの所属フレーム（敵・味方など）
 
+    [SerializeField]
+    private FreeImageAnimeMng[] Effects;
+
     [System.NonSerialized]
     public int UnitTranId;
 
@@ -180,6 +183,22 @@ public class CharaImgGaugeMng : ListItemMng
             if (p != null) {
                 p.gameObject.SetActive(val);
             }
+        }
+    }
+
+    /// <summary>
+    /// ステータス更新
+    /// </summary>
+    public void updateStatus() {
+        var status = getStatus();
+        setValue(status.Hp, 0);
+        setValue(status.Mp, 1);
+    }
+
+    public void effect( EffectMng.Key key ) {
+        if ((int)key < Effects.Length && Effects[(int)key] != null) {
+            Effects[(int)key].IsActive = true;
+            Effects[(int)key].gameObject.SetActive(true);
         }
     }
 

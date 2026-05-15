@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class EffectControllMng : MonoBehaviour
 {
-    /// <summary>
-    /// 共通エフェクトキー
-    /// </summary>
-    public enum Key{
-        Heal,
-        Cure,
-    }
 
     [SerializeField]
     private Camera EffectCamera;
@@ -32,7 +25,7 @@ public class EffectControllMng : MonoBehaviour
         Singleton = this;
     }
 
-    public void showEffect( Key k, Vector3 posi ) {
+    public void showEffect( EffectMng.Key k, Vector3 posi ) {
         showEffect(k.ToString(), posi);
     }
 
@@ -40,7 +33,7 @@ public class EffectControllMng : MonoBehaviour
         showEffect(EffectCamera, s, posi);
     }
 
-    public void showEffect( Camera cam, Key k, Vector3 posi) {
+    public void showEffect( Camera cam, EffectMng.Key k, Vector3 posi) {
         showEffect(cam, k.ToString(), posi);
     }
 

@@ -56,6 +56,9 @@ public class CmnConst {
 		En
 	}
 
+	/// <summary>
+	/// ボード・パネルの状態定義
+	/// </summary>
 	public enum BOARD_STATUS
 	{
 		OPEN,

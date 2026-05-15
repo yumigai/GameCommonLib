@@ -4,7 +4,16 @@ using UnityEngine.UI;
 
 public class EffectMng : MonoBehaviour{
 
-	[SerializeField]
+    /// <summary>
+    /// 共通エフェクトキー
+    /// </summary>
+    public enum Key
+    {
+        Heal,
+        Cure,
+    }
+
+    [SerializeField]
     public GameObject EffectPrefab;
 	[SerializeField]
     private GameObject[] Effects;

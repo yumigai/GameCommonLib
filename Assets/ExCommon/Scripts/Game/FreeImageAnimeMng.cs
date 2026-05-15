@@ -33,24 +33,27 @@ public class FreeImageAnimeMng : MonoBehaviour {
 			AnimeBoard = GetComponent<Image> ();
 		}
 	}
-	void Start(){
+	void OnEnable(){
 		Index = 0;
 		AnimeTime = 0f;
 	}
 		
 	void FixedUpdate(){
-		if (Speed > 0f && Sprites.Length > 0 && IsActive ) {
-			AnimeTime += Time.fixedDeltaTime;
-			if (AnimeTime >= Speed) {
+		if (Speed > 0f && IsActive ) {
+			AnimeTime += Speed * Time.fixedDeltaTime;
+			if (AnimeTime >= 1) { //Ø‚è‘Ö‚¦’PˆÊi1•bj
 				AnimeTime = 0f;
-				Index = Index < Sprites.Length - 1 ? Index + 1 : 0;
-                if (EndTo == END_TO.LOOP)
-                {
-                    AnimeBoard.sprite = Sprites[Index];
-                }
-                else{
-                    this.gameObject.SetActive(false);
-                }
+				
+				if (Index < Sprites.Length) {
+					AnimeBoard.sprite = Sprites[Index];
+					Index++;
+				} else {
+					if (EndTo == END_TO.LOOP) {
+						Index = 0;
+					} else {
+						this.gameObject.SetActive(false);
+					}
+				}
 			}
 		}
 	}

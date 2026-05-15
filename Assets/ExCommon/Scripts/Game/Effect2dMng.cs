@@ -5,6 +5,8 @@ using UnityEngine;
 public class Effect2dMng : MonoBehaviour
 {
     [SerializeField]
+    public GameObject EffectPrefab;
+    [SerializeField]
     private GameObject[] Effects;
 
     private int EffectCount = 0;
@@ -20,9 +22,9 @@ public class Effect2dMng : MonoBehaviour
 
         if (Effects[EffectCount] == null)
         {
-            eff = Instantiate(this.gameObject) as GameObject;
+            eff = Instantiate(EffectPrefab) as GameObject;
             Effects[EffectCount] = eff;
-            eff.transform.localScale = this.transform.localScale;
+            eff.transform.localScale = EffectPrefab.transform.localScale;
             eff.transform.parent = this.transform;
             eff.layer = this.gameObject.layer;
 
@@ -34,6 +36,11 @@ public class Effect2dMng : MonoBehaviour
 
         eff.transform.position = posi;
         eff.SetActive(true);
+
+        var anime = eff.GetComponent<FreeImageAnimeMng>();
+        if (anime != null) {
+            anime.IsActive = true;
+        }
 
         EffectCount++;
 

@@ -132,4 +132,22 @@ public class MultiUseScrollMng : MonoBehaviour
     public int activeCount() {
         return ItemList.Where(it => it.gameObject.activeSelf && it.Btn.interactable).Count();
     }
+
+    /// <summary>
+    /// 指定したリストアイテムを取得
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public MultiUseListMng getListItem( int id ) {
+        return ItemList.Find(it => it.Id == id);
+    }
+
+    /// <summary>
+    /// リスト入力準備
+    /// </summary>
+    /// <param name="over_ride"></param>
+    public void ReadyInputGamePad(bool over_ride = false) {
+        ItemList.ForEach(it => it.check(false));
+        Recive.initSetupWithFrameEnd(over_ride);
+    }
 }
