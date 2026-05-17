@@ -609,7 +609,7 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
                 return false;
             }
         } else {
-            if (!ListRecive.IsActive) {
+            if (ListRecive!= null && !ListRecive.IsActive) {
                 return false;
             }
         }

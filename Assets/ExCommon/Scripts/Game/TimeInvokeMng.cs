@@ -11,22 +11,22 @@ public class TimeInvokeMng : MonoBehaviour
     /// <param name="callback"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    public static TimeInvokeMng TimerAction( System.Action callback, float time, GameObject go) {
-        var timer = GetTimer(callback, go);
+    public static TimeInvokeMng TimerAction( System.Action callback, float time, GameObject go = null) {
+        var timer = GetTimer(go);
         timer.TimerAction(callback, time);
         return timer;
     }
 
     public static TimeInvokeMng FrameEndAction(System.Action callback, GameObject go = null) {
-        if (go == null) {
-            go = CommonProcess.getCommonObject();
-        }
-        var timer = GetTimer(callback, go);
+        var timer = GetTimer(go);
         timer.FrameAction(callback);
         return timer;
     }
 
-    protected static TimeInvokeMng GetTimer(System.Action callback, GameObject go) {
+    public static TimeInvokeMng GetTimer(GameObject go = null) {
+        if (go == null) {
+            go = CommonProcess.getCommonObject();
+        }
         var timer = go.GetComponent<TimeInvokeMng>();
         if (timer == null) {
             timer = go.AddComponent<TimeInvokeMng>();

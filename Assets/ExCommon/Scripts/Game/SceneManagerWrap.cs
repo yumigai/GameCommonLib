@@ -17,7 +17,7 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
     public static string BeforeNearScene { get { return BeforeScene.Count == 0 ? CmnConst.SCENE.HomeScene.ToString() : BeforeScene[BeforeScene.Count - 1]; } }
 
 
-	public static void loadScene (string sceneName, bool rec_before = true){
+	public static void loadScene (string sceneName, bool rec_before = true, LoadSceneMode mode = LoadSceneMode.Single) {
 	
 		string now_scene = NowScene;
 		
@@ -34,7 +34,7 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
 			}
 		}
 		
-        SceneManager.LoadScene (sceneName);
+        SceneManager.LoadScene (sceneName, mode);
 		
 	}
 
@@ -42,8 +42,8 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
         LoadScene(scene);
     }
 
-    public static void LoadScene( CmnConst.SCENE scene, bool rec_before = true ){
-		loadScene (scene.ToString (),rec_before);
+    public static void LoadScene( CmnConst.SCENE scene, bool rec_before = true, LoadSceneMode mode = LoadSceneMode.Single ) {
+		loadScene (scene.ToString (),rec_before, mode);
 	}
 
 
@@ -123,4 +123,24 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
 	public static bool NowScheneIs(string scene) {
 		return SceneManager.GetActiveScene().name == scene;
 	}
+
+	public static void LoadSceneAdditional(CmnConst.SCENE scene) {
+		LoadScene(scene, false,LoadSceneMode.Additive);
+	}
+
+	public static void CloseAdditiveScene(CmnConst.SCENE scene) {
+		TimeInvokeMng.GetTimer().StartCoroutine(UnloadScene(scene.ToString()));
+	}
+
+	new static IEnumerator UnloadScene(string sceneName) {
+		// シーンが存在するかチェックしてアンロード
+		if (SceneManager.GetSceneByName(sceneName).isLoaded) {
+			AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
+
+			// アンロード完了まで待機（必要に応じて）
+			yield return asyncUnload;
+			Debug.Log(sceneName + " を閉じました。");
+		}
+	}
 }
+
