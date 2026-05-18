@@ -3,16 +3,24 @@ using System.Collections;
 
 public class LangageSelectMng : MonoBehaviour {
 
-	private bool IsScene = true;
 
-    public static void show(GameObject prefab, Transform pare)
+    static LangageSelectMng Singleton;
+
+    private void Awake() {
+        Singleton = this;
+    }
+
+    public static LangageSelectMng show(GameObject prefab, Transform pare)
     {
+        if (Singleton != null) {
+            Destroy(Singleton.gameObject);
+        }
         GameObject obj = Instantiate(prefab) as GameObject;
         obj.transform.parent = pare;
         obj.transform.localPosition = new Vector3();
         obj.transform.localScale = prefab.transform.localScale;
-		LangageSelectMng mng = obj.GetComponent<LangageSelectMng> ();
-		mng.IsScene = false;
+        return obj.GetComponent<LangageSelectMng>();
+
     }
 
     public void pushJp()
@@ -30,10 +38,15 @@ public class LangageSelectMng : MonoBehaviour {
 		CmnSaveProc.Conf.SelectLang = (int)lang;
 		CmnSaveProc.Conf.Standby = true;
 		CmnSaveProc.saveConfig();
-		if (IsScene) {
-			SceneManagerWrap.loadBefore ();
+		if (SceneManagerWrap.NowScheneIs(CmnConst.SCENE.SelectLangScene)) {
+            SceneManagerWrap.loadBefore();
 		} else {
-			Destroy (this.gameObject);
+            this.gameObject.SetActive(false);
+			//Destroy (this.gameObject);
 		}
+    }
+
+    public void show() {
+        this.gameObject.SetActive(true);
     }
 }

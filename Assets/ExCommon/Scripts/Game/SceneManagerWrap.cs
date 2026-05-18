@@ -64,7 +64,7 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
 		SceneManagerWrap.LoadScene(CmnConst.SCENE.NowLoadingScene);
 	}
 
-	public static void LoadAndFadeOut( MonoBehaviour mono, CmnConst.SCENE scene, bool rec_before = true, float time = DEFAULT_FADE_TIME)
+	public static void LoadAndFadeOut( MonoBehaviour mono, CmnConst.SCENE scene, bool rec_before = true, LoadSceneMode mode = LoadSceneMode.Single, float time = DEFAULT_FADE_TIME)
     {
         GameObject canvs = GameObject.FindObjectOfType<Canvas>().gameObject;
         CanvasGroup grp = canvs.GetComponent<CanvasGroup>();
@@ -126,6 +126,7 @@ public class SceneManagerWrap : UnityEngine.SceneManagement.SceneManager {
 
 	public static void LoadSceneAdditional(CmnConst.SCENE scene) {
 		LoadScene(scene, false,LoadSceneMode.Additive);
+		//LoadAndFadeOut(TimeInvokeMng.GetTimer(), scene, false, LoadSceneMode.Additive);
 	}
 
 	public static void CloseAdditiveScene(CmnConst.SCENE scene) {

@@ -31,12 +31,6 @@ public class CmnConfigMng : SoundConfigMng {
         SceneManagerWrap.LoadScene(CmnConst.SCENE.TitleScene);
     }
 
-	public void changeLang( )
-	{
-		CmnBaseProcessMng.playClickSe();
-		CmnBaseProcessMng.selectLang();
-	}
-
 	public void pushTutorial(){
 		CmnBaseProcessMng.loadSceneWrap (CmnConfig.TUTORIAL_SCENE); 
 	}
