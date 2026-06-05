@@ -235,13 +235,11 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
                 HoldingPadDown = holding;
 
             } else {
-                if (Input.anyKeyDown) {
-                    inputKeyAction();
-                }
-
-                if(IsAxisDeal()) {
+                if (IsAxisDeal()) {
                     //方向入力は一旦素通しする
                     inputAxisAction();
+                }else if (Input.anyKeyDown) {
+                    inputKeyAction();
                 }
             }
         }

@@ -83,9 +83,10 @@ public class GaugeBarMng : MonoBehaviour {
 		if (IsDelay && DelayGauge != null ) {
             DelayGauge.fillAmount = NowGaugeAmount;
 			StartCoroutine (delayRedGauge());
-		} else {
-			valueUpdate (val);
-		}
+		} 
+
+		valueUpdate (val);
+
 	}
 
 	public void valueUpdate( float val) {
@@ -94,7 +95,9 @@ public class GaugeBarMng : MonoBehaviour {
         } else {
             MainGauge.fillAmount = 0;
         }
-        
+
+		NowGaugeAmount = MainGauge.fillAmount;
+
 
 		//for (int i = 0; i < MainGauges.Length; i++) {
 		//	MainGauges [i].fillAmount = 0f;

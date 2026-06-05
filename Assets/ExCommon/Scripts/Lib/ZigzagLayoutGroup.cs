@@ -47,12 +47,20 @@ public class ZigzagLayoutGroup : UIBehaviour, ILayoutGroup {
     [SerializeField, HeaderAttribute("ジグザグしない場合のスペース")]
     public Vector2 NoZigzagSpacing = new Vector2(0f, 0f);
 
+    [System.NonSerialized]
+    //SiblingIndexとは別のindex。左からの並び順
+    private Transform[] ChildIndex = new Transform[0];
+
+    new void Awake() {
+        base.Awake();
+        Row = Row < 1 ? 1 : Row;
+    }
 
 #if UNITY_EDITOR
     protected override void OnValidate() {
         base.OnValidate();
         if (IsAuto) {
-            Arrange();
+            //Arrange();
         }
     }
 	#endif
@@ -67,7 +75,7 @@ public class ZigzagLayoutGroup : UIBehaviour, ILayoutGroup {
     #endregion
 
     new void OnEnable() {
-        Arrange();
+        //Arrange();
     }
 
     public void Arrange() {
@@ -128,8 +136,34 @@ public class ZigzagLayoutGroup : UIBehaviour, ILayoutGroup {
         //座標が下にあるものほど、「手前にある」とさせるために並べ替える
         RectTransform[] sort = childs.OrderByDescending(it => it.localPosition.y).ToArray();
 
-        for( int i = 0; i < sort.Length; i++) {
+        //左からの並び順
+        ChildIndex = childs.OrderBy(it => it.localPosition.x).ToArray();
+
+        for ( int i = 0; i < sort.Length; i++) {
             sort[i].SetSiblingIndex(i);
         }
+        
+
+    }
+
+    /// <summary>
+    /// SiblingIndexではなく、左からの並びでindexとして取得する
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public int GetIndex(Transform tra) {
+
+        return System.Array.IndexOf(ChildIndex, tra);
+
+        //return index / Row * Row + index % Row;
+        // 1 / 2 1 
+        // 2/ 2 3
+        // 3/ 2 2
+        //return System.Array.IndexOf(ChildIndex, tra);
+    }
+
+    public int GetIndex(int index) {
+        return index / Row * Row + index % Row;
+
     }
 }

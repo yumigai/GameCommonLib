@@ -217,7 +217,7 @@ public class GamePadListRecivMng : MonoBehaviour {
     /// </summary>
     /// <param name="over_ride"></param>
     public void initSetupWithFrameEnd(bool over_ride = false) {
-        TimeInvokeMng.FrameEndAction(() => { initSetup(over_ride); });
+        TimeInvokeMng.FrameEndAction(() => { initSetup(over_ride); }, this.gameObject);
     }
 
     private void Update() {
