@@ -34,6 +34,16 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
     [SerializeField]
     private bool IsStop = false;
 
+    [SerializeField]
+    public bool IsRole;
+
+    [SerializeField]
+    public bool IsMove;
+
+    [SerializeField]
+    public bool IsScale;
+
+
     private float ReverseAdj = 1;
 
     private float RestTime = 0f;
@@ -74,14 +84,23 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
 
         Transform t = this.transform;
 
-        t.Rotate(RoleSpeed * ReverseAdj);
-        t.localPosition += MoveSpeed * ReverseAdj;
-        t.localScale += ScaleSpeed * ReverseAdj;
+        if (IsRole) {
+            t.Rotate(RoleSpeed * ReverseAdj);
+        }
+        if (IsMove) {
+            t.localPosition += MoveSpeed * ReverseAdj;
+        }
+
+        if (IsScale) {
+            t.localScale += ScaleSpeed * ReverseAdj;
+        }
+            
 
         if (RestTime <= 0f) {
             switch (EndTo) {
                 case END_TO.RESTART:
-                RestInterval = IntervalTime;
+                StatusReset();
+                PositionReset();
                 break;
                 case END_TO.REVERSE:
                 RestTime = AnimeTime;
@@ -106,10 +125,15 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
     }
 
     private void PositionReset() {
-        this.transform.localEulerAngles = InitRole;
-        this.transform.localPosition = InitPosition;
-        this.transform.localScale = InitScale;
-
+        if (IsRole) {
+            this.transform.localEulerAngles = InitRole;
+        }
+        if (IsMove) {
+            this.transform.localPosition = InitPosition;
+        }
+        if (IsScale) {
+            this.transform.localScale = InitScale;
+        }
     }
     private void StatusReset() {
 
@@ -134,5 +158,27 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
         ReverseAdj = 1;
         StatusReset();
         AnimeStart();
+    }
+
+    public void Forward() {
+        if (ReverseAdj < 0) {
+            ReversePlane();
+            ReverseAdj = 1;
+        }
+    }
+
+    public void Reverse() {
+        if (ReverseAdj > 0) {
+            ReversePlane();
+            ReverseAdj = -1;
+        }
+    }
+
+    private void ReversePlane() {
+        RoleLimit = -RoleLimit;
+        MoveLimit = -MoveLimit;
+        ScaleLimit = -ScaleLimit;
+        PositionReset();
+        StatusReset();
     }
 }

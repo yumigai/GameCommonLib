@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -17,8 +17,11 @@ public class CmnColorAnimeMng : MonoBehaviour {
 	[SerializeField]
 	public END_TO EndTo;
 
-	[SerializeField]
+	[SerializeField,Header("0は初期値、1が最初の変化")]
 	public Color[] Colors;
+
+	[SerializeField, Header("オプション、imageとtextとは別の場合")]
+	public Color[] OutlineColors;
 
 	[SerializeField]
 	public bool IsAlphaOnly = true;
@@ -39,6 +42,9 @@ public class CmnColorAnimeMng : MonoBehaviour {
 		Imgs = GetComponentsInChildren<Image> ();
 		Texts = GetComponentsInChildren<Text> ();
 		Outlines = GetComponentsInChildren<Outline> ();
+		if (OutlineColors.Length < Colors.Length) {
+			OutlineColors = Colors;
+		}
 		NowTime = 0;
 	}
 
@@ -53,6 +59,8 @@ public class CmnColorAnimeMng : MonoBehaviour {
 			}
 
 			Color col = Color.Lerp (Colors [NowIndex], Colors [NowIndex + 1], diff);
+			Color colOutline = Color.Lerp(OutlineColors[NowIndex], OutlineColors[NowIndex + 1], diff);
+
 			float alpha = col.a;
 			foreach (Image img in Imgs) {
 				if (IsAlphaOnly) {
@@ -68,9 +76,9 @@ public class CmnColorAnimeMng : MonoBehaviour {
 			}
 			foreach (Outline ol in Outlines) {
 				if (IsAlphaOnly) {
-					col = new Color (ol.effectColor.r,ol.effectColor.g, ol.effectColor.b, alpha );
+					colOutline = new Color (ol.effectColor.r,ol.effectColor.g, ol.effectColor.b, colOutline.a);
 				}
-				ol.effectColor = col;
+				ol.effectColor = colOutline;
 			}
 
 			if (NowTime >= AnimeTimes [NowIndex]) {
@@ -93,5 +101,11 @@ public class CmnColorAnimeMng : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+    public void ResetColor() {
+		NowIndex = 0;
+		NowTime = 0;
+		IsPlay = true;
 	}
 }
