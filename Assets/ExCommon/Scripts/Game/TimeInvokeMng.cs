@@ -17,6 +17,12 @@ public class TimeInvokeMng : MonoBehaviour
         return timer;
     }
 
+    public static TimeInvokeMng TimerAction(System.Action callback, float time, float after, GameObject go = null) {
+        var timer = GetTimer(go);
+        timer.TimerAction(callback, time, after);
+        return timer;
+    }
+
     public static TimeInvokeMng FrameEndAction(System.Action callback, GameObject go = null) {
         var timer = GetTimer(go);
         timer.FrameAction(callback);
@@ -59,6 +65,9 @@ public class TimeInvokeMng : MonoBehaviour
     public void TimerAction(System.Action callback, float time) {
         StartCoroutine(Invoke(callback, time));
     }
+    public void TimerAction(System.Action callback, float time, float after) {
+        StartCoroutine(Invoke(callback, time, after));
+    }
 
     public void FrameAction(System.Action callback) {
         StartCoroutine(Invoke(callback));
@@ -67,6 +76,11 @@ public class TimeInvokeMng : MonoBehaviour
     IEnumerator Invoke(System.Action callback, float time) {
         yield return new WaitForSeconds(time);
         callback();
+    }
+    IEnumerator Invoke(System.Action callback, float time, float after) {
+        yield return new WaitForSeconds(time);
+        callback();
+        yield return new WaitForSeconds(after);
     }
 
     IEnumerator Invoke(System.Action callback) {

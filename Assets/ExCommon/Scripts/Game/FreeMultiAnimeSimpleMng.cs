@@ -165,6 +165,8 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
             ReversePlane();
             ReverseAdj = 1;
         }
+        PositionReset();
+        StatusReset();
     }
 
     public void Reverse() {
@@ -172,13 +174,14 @@ public class FreeMultiAnimeSimpleMng : MonoBehaviour
             ReversePlane();
             ReverseAdj = -1;
         }
+        PositionReset();
+        StatusReset();
     }
 
     private void ReversePlane() {
-        RoleLimit = -RoleLimit;
-        MoveLimit = -MoveLimit;
-        ScaleLimit = -ScaleLimit;
-        PositionReset();
-        StatusReset();
+        //RoleLimit = -RoleLimit;
+        //MoveLimit = -MoveLimit;
+        //ScaleLimit = -ScaleLimit;
+
     }
 }
