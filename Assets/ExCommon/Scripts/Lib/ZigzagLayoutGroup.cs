@@ -75,7 +75,7 @@ public class ZigzagLayoutGroup : UIBehaviour, ILayoutGroup {
     #endregion
 
     new void OnEnable() {
-        //Arrange();
+        Arrange();
     }
 
     public void Arrange() {
