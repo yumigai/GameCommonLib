@@ -17,8 +17,12 @@ public class MultiUseScrollMng : MonoBehaviour
     [SerializeField]
     public GamePadListRecivMng Recive;
 
+    [SerializeField,Tooltip("MultiUseListMngのDetailを表示するText。GamePadButtnRecvと競合しないように注意")]
+    public Text GuidMessage;
+
     [System.NonSerialized]
     public List<MultiUseListMng> ItemList = new List<MultiUseListMng>();
+
 
     void Awake() {
         if (Recive == null) {
@@ -91,6 +95,12 @@ public class MultiUseScrollMng : MonoBehaviour
         if (mng.Detail != null) {
             mng.Detail.text = detail;
         }
+        mng.DetailString = detail;
+        if (GuidMessage != null && mng.SelectedCallback == null) {
+            //個別コールバックが設定されていない場合、ガイドメッセージ更新を登録
+            mng.SelectedCallback = ChangeSelectedGuidMessage;
+        }
+
         if (mng.Value != null) {
             mng.Value.text = value;
         }
@@ -149,5 +159,11 @@ public class MultiUseScrollMng : MonoBehaviour
     public void ReadyInputGamePad(bool over_ride = false) {
         ItemList.ForEach(it => it.check(false));
         Recive.initSetupWithFrameEnd(over_ride);
+    }
+
+    private void ChangeSelectedGuidMessage(MultiUseListMng list ) {
+        if (GuidMessage != null) {//念のため
+            GuidMessage.text = list.DetailString;
+        }
     }
 }

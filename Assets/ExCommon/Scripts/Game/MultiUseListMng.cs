@@ -34,7 +34,7 @@ public class MultiUseListMng : ListItemMng
 	public Image Icon;
 
 	[SerializeField]
-	public string ImagePath; //   ŕێ     摜 p X
+	public string ImagePath; //画像パス
 
 	[SerializeField]
 	public Text TagLabel;
@@ -45,17 +45,17 @@ public class MultiUseListMng : ListItemMng
 	[SerializeField]
 	public Image[] ExtraImgs;
 
-	//[SerializeField]
-	//   K V [
+	[System.NonSerialized]
+	public string DetailString;
+
 	public System.Action<MultiUseListMng> Callback;
 
 	public System.Action<MultiUseListMng> SelectedCallback;
 
-	//   K V [
 	public static MultiUseListMng SelectedItem;
 
 	/// <summary>
-	///  T u e L X g P
+	/// 
 	/// </summary>
 	public string ExtraText1 {
 		set {
@@ -63,7 +63,7 @@ public class MultiUseListMng : ListItemMng
 		}
 	}
 	/// <summary>
-	///  T u e L X g Q
+	/// 
 	/// </summary>
 	public string ExtraText2 {
 		set {
@@ -95,7 +95,7 @@ public class MultiUseListMng : ListItemMng
 			Btn.gameObject.SetActive(false);
 			break;
 			case BUTTON.LOCK:
-			Btn.gameObject.SetActive(false); //  U  \   ɂ  Ȃ   interactable ̐ؑւ   ʂŃ`        
+			Btn.gameObject.SetActive(false); //一旦非表示にする  
 			Btn.interactable = false;
 			Btn.gameObject.SetActive(true);
 			break;
@@ -103,7 +103,7 @@ public class MultiUseListMng : ListItemMng
 	}
 
 	/// <summary>
-	///    K V [    
+	///  ボタン発火
 	/// </summary>
 	public void pushButton() {
 		SelectedItem = this;
@@ -111,7 +111,7 @@ public class MultiUseListMng : ListItemMng
 	}
 
 	/// <summary>
-	///  I    ԕύX iEventTrigger.Select Ŏw  j
+	///  選択状態変更
 	/// </summary>
 	public void changeSelected() {
 		SelectedCallback?.Invoke(this);
@@ -131,7 +131,7 @@ public class MultiUseListMng : ListItemMng
 
 	#region
 	/// <summary>
-	///  { ^   C x   g ݒ 
+	///  ボタンイベント登録
 	/// </summary>
 	/// <param name="call"></param>
 	public void SetButtonInvoke(UnityAction call) {
