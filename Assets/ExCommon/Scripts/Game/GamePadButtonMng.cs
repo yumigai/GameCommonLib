@@ -88,6 +88,9 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     /// </summary>
     public int ListIndex = 0;
 
+    [System.NonSerialized]
+    public string GuidText = "";
+
     private string _dealStr = "";
 
     //private bool IsBeforePush = false;
@@ -107,7 +110,7 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     /// </summary>
     private float HoldKeyTime = 0f;
 
-    private LanguageStaticTextMng LangText;
+    //private LanguageStaticTextMng LangText;
 
     private static bool IsAxisRest = true;
 
@@ -127,18 +130,6 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
         }
     }
 
-    public string JpGuid {
-        get {
-            return LangText == null ? "" : LangText.JpText;
-        }
-    }
-
-    public string EnGuid {
-        get {
-            return LangText == null ? "" : LangText.EngText;
-        }
-    }
-
     protected string DealStr{ get{
             if (_dealStr.Length == 0) {
                 //_dealStr = CmnSaveProc.getKeyStr(DealButton);
@@ -147,14 +138,20 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
 
     protected override void Awake() {
         base.Awake();
-        LangText = LangText == null ? GetComponent<LanguageStaticTextMng>() : LangText;
-        InitReflesh();
+        InitSetting();
     }
 
-    void InitReflesh() {
+    void InitSetting() {
+        if (GuidText.Length == 0) {
+            var lang = GetComponent<LanguageStaticTextMng>();
+            GuidText = lang != null ? lang.getLangText() : "";
+        }
         if (Standby.ContainsKey(DealButton)) {
             Standby[DealButton].RemoveAll(it => it == null || it.gameObject.activeSelf == false);
         }
+
+        //デフォルトでSeletedButtonを設定
+        SetButtonSelectInvoke(SeletedButton);
     }
 
     protected new void OnEnable() {
@@ -169,6 +166,10 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
         updateActive(true);
     }
 
+    /// <summary>
+    /// 前のボタンのアクティブ化切り替え
+    /// </summary>
+    /// <param name="val"></param>
     protected void updateActive(bool val) {
         if (IsNonActiveHide && StandByList.Count() > 0 && ListRecive == null) {
             StandByList.Last().gameObject.SetActive(val);
@@ -315,6 +316,9 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     protected bool inputAxisAction() {
 
         if (checkAxisAction()) {
+            if (ListRecive != null) {
+                ListRecive.SelectTriggerReady = true;
+            }
             onClick.Invoke();
             return true;
         }
@@ -431,13 +435,15 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     /// ボタン選択状態変更（EventTrigger.Selectで指定）
     /// </summary>
     public void SeletedButton() {
-        if ( ListRecive != null && ListRecive.GuidMessage != null) {
-            if (CmnSaveProc.IsJp) {
-                ListRecive.GuidMessage.text = JpGuid;
-            } else {
-                ListRecive.GuidMessage.text = EnGuid;
+        if (ListRecive != null) {
+            if (ListRecive.GuidMessage != null) {
+                ListRecive.GuidMessage.text = GuidText;
+            }
+            if (ListRecive.SelectTriggerReady) {
+                CommonProcess.playCursolSe();
             }
         }
+
     }
 
     /// <summary>
@@ -643,6 +649,11 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
         onClick.AddListener(call);
     }
 
+    public void SetButtonInvoke(UnityAction<MultiUseListMng> call, MultiUseListMng value) {
+        onClick.RemoveAllListeners();
+        onClick.AddListener(() => call(value));
+    }
+
     public void SetButtonInvoke(UnityAction<int> call, int value) {
         onClick.RemoveAllListeners();
         onClick.AddListener(() => call(value));
@@ -657,6 +668,10 @@ public class GamePadButtonMng : Button { //, IPointerClickHandler {
     }
 
     public void SetButtonSelectInvoke(UnityAction<int> call, int value) {
+        SetButtonSelectInvokeCmn(() => { call(value); });
+    }
+
+    public void SetButtonSelectInvoke(UnityAction<MultiUseListMng> call, MultiUseListMng value) {
         SetButtonSelectInvokeCmn(() => { call(value); });
     }
 

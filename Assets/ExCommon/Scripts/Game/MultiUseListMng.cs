@@ -19,7 +19,7 @@ public class MultiUseListMng : ListItemMng
 	public Text ButtonTxt;
 
 	[SerializeField]
-	public Button Btn;
+	public GamePadButtonMng Btn;
 
 	[SerializeField]
 	public Text Name;
@@ -48,9 +48,9 @@ public class MultiUseListMng : ListItemMng
 	[System.NonSerialized]
 	public string DetailString;
 
-	public System.Action<MultiUseListMng> Callback;
+	public UnityAction<MultiUseListMng> Callback{  set { Btn.SetButtonInvoke(value,this); } }
 
-	public System.Action<MultiUseListMng> SelectedCallback;
+	public UnityAction<MultiUseListMng> SelectedCallback {  set { Btn.SetButtonSelectInvoke(value,this); } }
 
 	public static MultiUseListMng SelectedItem;
 
@@ -71,7 +71,14 @@ public class MultiUseListMng : ListItemMng
 		}
 	}
 
-	public Sprite setIcon(string path) {
+    protected override void Awake() {
+		base.Awake();
+		if (Btn == null) {
+			Btn = GetComponent<GamePadButtonMng>();
+		}
+	}
+
+    public Sprite setIcon(string path) {
 		if (path.Length == 0) {
 			return null;
 		}
@@ -100,21 +107,6 @@ public class MultiUseListMng : ListItemMng
 			Btn.gameObject.SetActive(true);
 			break;
 		}
-	}
-
-	/// <summary>
-	///  ボタン発火
-	/// </summary>
-	public void pushButton() {
-		SelectedItem = this;
-		Callback?.Invoke(this);
-	}
-
-	/// <summary>
-	///  選択状態変更
-	/// </summary>
-	public void changeSelected() {
-		SelectedCallback?.Invoke(this);
 	}
 
 	public void SetExtraText1(string str) {

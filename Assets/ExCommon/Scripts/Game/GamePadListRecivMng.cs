@@ -50,8 +50,8 @@ public class GamePadListRecivMng : MonoBehaviour {
     [System.NonSerialized]
     public System.Action Callback;
 
-    //[System.NonSerialized]
-    //public System.Action CallbackCancel;
+    [System.NonSerialized] //Select EventTriggerの開始準備
+    public bool SelectTriggerReady = false;
 
     [System.NonSerialized]
     private int Selecter = 0;
@@ -204,9 +204,9 @@ public class GamePadListRecivMng : MonoBehaviour {
             Buttons[i].navigation = navi;
         }
 
-        if (Buttons != null && Buttons.Count > 0) {
-            Buttons[0].SeletedButton();
-        }
+        //効果音などが初期状態で鳴るのを防止
+        SelectTriggerReady = false;
+        TimeInvokeMng.TimerAction(() => { SelectTriggerReady = true; }, 0.5f);
 
         PageController?.init();
 
@@ -221,8 +221,6 @@ public class GamePadListRecivMng : MonoBehaviour {
     }
 
     private void Update() {
-        //Debug.Log("active : " + _activeGamePadList.transform.parent.parent.name);
-        //Debug.Log("true : " + EventSystem.current.currentSelectedGameObject);
         inputAction();
     }
 
@@ -246,8 +244,6 @@ public class GamePadListRecivMng : MonoBehaviour {
                         Selecter = btnmng.ListIndex;
                     }
                 }
-
-                //Debug.Log(  " : "+IsButtonClickable());
             }
         }
     }

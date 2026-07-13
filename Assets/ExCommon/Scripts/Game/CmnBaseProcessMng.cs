@@ -59,10 +59,10 @@ public class CmnBaseProcessMng : MonoBehaviour
     public AudioClip ErrorSe;
 
     [SerializeField]
-    public AudioClip SpecialSe;
+    public AudioClip CursolSe;
 
     [SerializeField]
-    public AudioClip[] CursolSe;
+    public AudioClip SpecialSe;
 
     [SerializeField]
     public GameObject ConfirmWindow;
@@ -230,12 +230,15 @@ public class CmnBaseProcessMng : MonoBehaviour
         SoundMng.Instance.playSE(Singleton.ErrorSe);
     }
 
-    public static void playSpecialSe() {
-        SoundMng.Instance.playSE(Singleton.SpecialSe);
+    /// <summary>
+    /// リストの項目選択変更
+    /// </summary>
+    public static void playCursolSe(int index = 0) {
+        SoundMng.Instance.playSE(Singleton.CursolSe);
     }
 
-    public static void playCursolSe(int index = 0) {
-        SoundMng.Instance.playSE(Singleton.CursolSe[index]);
+    public static void playSpecialSe() {
+        SoundMng.Instance.playSE(Singleton.SpecialSe);
     }
 
     public static void toTitle() {
