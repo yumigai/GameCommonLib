@@ -48,9 +48,9 @@ public class MultiUseListMng : ListItemMng
 	[System.NonSerialized]
 	public string DetailString;
 
-	public UnityAction<MultiUseListMng> Callback{  set { Btn.SetButtonInvoke(value,this); } }
+	public UnityAction<MultiUseListMng> Callback{  set { if(Btn!=null)Btn.SetButtonInvoke(value,this); } }
 
-	public UnityAction<MultiUseListMng> SelectedCallback {  set { Btn.SetButtonSelectInvoke(value,this); } }
+	public UnityAction<MultiUseListMng> SelectedCallback {  set { if(Btn!=null)Btn.SetButtonSelectInvoke(value,this); } }
 
 	public static MultiUseListMng SelectedItem;
 

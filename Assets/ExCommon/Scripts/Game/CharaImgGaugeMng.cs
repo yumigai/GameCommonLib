@@ -146,6 +146,15 @@ public class CharaImgGaugeMng : ListItemMng
         }
     }
 
+    public void setParam(int val, int index = 0) {
+        setParam(val.ToString(), index);
+    }
+    public void setParam(string str, int index = 0) {
+        if (Params.Length > index && Params[index] != null) {
+            Params[index].text = str;
+        }
+    }
+
     /// <summary>
     /// 戦闘不能状態設定
     /// </summary>
