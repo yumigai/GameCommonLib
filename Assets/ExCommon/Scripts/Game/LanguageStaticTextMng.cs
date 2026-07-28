@@ -36,7 +36,7 @@ public class LanguageStaticTextMng : MonoBehaviour {
 	}
 
 	public string getLangText(){
-		if( CmnSaveProc.Conf.SelectLang == (int)CmnSaveProc.GameConfig.LANG.JP){
+		if( CmnSaveProc.Conf.SelectLang == (int)CmnSaveProc.GameConfig.LANG.Jp){
 			return JpText;
 		}else{
 			return EngText;
@@ -44,7 +44,7 @@ public class LanguageStaticTextMng : MonoBehaviour {
 	}
 
 	public static string getLangText( string jp, string eng ){
-		if( CmnSaveProc.Conf.SelectLang == (int)CmnSaveProc.GameConfig.LANG.JP){
+		if( CmnSaveProc.Conf.SelectLang == (int)CmnSaveProc.GameConfig.LANG.Jp){
 			return jp;
 		}else{
 			return eng;

@@ -31,8 +31,8 @@ public class CmnSaveProc
 	{
 		public enum LANG
 		{
-			JP,
-			ENG,
+			Jp,
+			En,
 			ALL
 		}
 
@@ -43,7 +43,7 @@ public class CmnSaveProc
 		public string PlayerName;
 
 		public GameConfig() {
-			SelectLang = (int)LANG.JP;
+			SelectLang = (int)LANG.Jp;
 			TutorialSequence = new int[0];
 		}
 	}
@@ -53,32 +53,37 @@ public class CmnSaveProc
 	/// </summary>
 	public static bool IsJp {
 		get {
-			return Conf.SelectLang == (int)GameConfig.LANG.JP;
+			return Conf.SelectLang == (int)GameConfig.LANG.Jp;
 		}
 	}
 
+	public static string LangPath {
+		get {
+			return ((GameConfig.LANG)Conf.SelectLang).ToString();
+		}
+    }
 
-	///// <summary>
-	///// キーコンフィグ
-	///// </summary>
-	//public class KeyConfigTran : SaveClass {
+    ///// <summary>
+    ///// キーコンフィグ
+    ///// </summary>
+    //public class KeyConfigTran : SaveClass {
 
-	//    public string[] Buttons = new string[(int)CmnConfig.GamePadButton.All];
-	//    public string[] KeyBoards = new string[(int)CmnConfig.GamePadButton.All];
+    //    public string[] Buttons = new string[(int)CmnConfig.GamePadButton.All];
+    //    public string[] KeyBoards = new string[(int)CmnConfig.GamePadButton.All];
 
-	//    public bool GetKeyDown(CmnConfig.GamePadButton button) {
+    //    public bool GetKeyDown(CmnConfig.GamePadButton button) {
 
-	//        if (Input.GetKeyDown(Buttons[(int)button])) {
-	//            return true;
-	//        }
-	//        if (Input.GetKeyDown(KeyBoards[(int)button])) {
-	//            return true;
-	//        }
-	//        return false;
-	//    }
-	//}
+    //        if (Input.GetKeyDown(Buttons[(int)button])) {
+    //            return true;
+    //        }
+    //        if (Input.GetKeyDown(KeyBoards[(int)button])) {
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //}
 
-	public enum KEY
+    public enum KEY
 	{
 		TIME,
 		//		CONFIG,

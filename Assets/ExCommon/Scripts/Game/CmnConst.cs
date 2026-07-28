@@ -48,6 +48,7 @@ public class CmnConst {
         EquipScene,
         SystemScene,
         SaveScene,
+		GameOverScene,
     }
 
 	public enum Lang

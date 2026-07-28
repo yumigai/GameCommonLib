@@ -25,11 +25,11 @@ public class LangageSelectMng : MonoBehaviour {
 
     public void pushJp()
     {
-		changeLang(CmnSaveProc.GameConfig.LANG.JP);
+		changeLang(CmnSaveProc.GameConfig.LANG.Jp);
     }
     public void pushEn()
     {
-		changeLang(CmnSaveProc.GameConfig.LANG.ENG);
+		changeLang(CmnSaveProc.GameConfig.LANG.En);
     }
 
 	public void changeLang(CmnSaveProc.GameConfig.LANG lang)
